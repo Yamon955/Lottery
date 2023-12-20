@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace等于mapper接口类的全限定符,这样实现对应 -->
+<mapper namespace="com.lottery.infrastructure.dao.IStrategyDetailDao">
+
+    <select id="queryStrategyDetailList" parameterType="long" resultType="com.lottery.infrastructure.po.StrategyDetail">
+        select
+            id, strategyId, awardId, awardCount, awardRate, createTime, updateTime
+        from
+            strategy_detail
+        where
+            strategyId = #{strategyId}
+    </select>
+
+</mapper>
