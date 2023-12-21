@@ -9,6 +9,7 @@ import java.util.Date;
  * 活动基础信息表
  */
 public class Activity {
+
     // 自增ID
     private Long id;
 

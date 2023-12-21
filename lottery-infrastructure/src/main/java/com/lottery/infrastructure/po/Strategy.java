@@ -3,6 +3,7 @@ package com.lottery.infrastructure.po;
 import java.util.Date;
 
 /**
+ * @Description 策略配置
  * @Author Yamon
  * @Create 2023/12/20 10:01
  */

@@ -3,11 +3,13 @@ package com.lottery.domain.strategy.service.algorithm;
 import com.lottery.domain.strategy.model.vo.AwardRateInfo;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * @Description 共用的算法逻辑抽象类
  * @Author Yamon
  * @Create 2023/12/18 21:59
  */
@@ -29,7 +31,7 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
     @Override
     public void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList) {
         // 保存奖品概率信息
-        awardRateInfoMap.put(strategyId, awardRateInfoList);
+        awardRateInfoMap.put(strategyId, awardRateInfoList); //总体概率抽奖只需初始化此处即可 --> 因此此处将两种不同的抽奖策略分别进行 initRateTuple 过程
 
         // computeIfAbsent() 方法对 hashMap 中指定 key 的值进行重新计算，如果不存在这个 key，则添加到 hashMap 中。
         String[] rateTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);
@@ -44,7 +46,6 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
             }
             cursorVal += rateVal;
         }
-
     }
 
     @Override
@@ -60,6 +61,15 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
     protected int hashIdx(int val){
         int hashCode = val * HASH_INCREMENT + HASH_INCREMENT;
         return hashCode & (RATE_TUPLE_LENGTH - 1);
+    }
+
+    /**
+     * 生成百位随机抽奖码
+     * @param bound
+     * @return
+     */
+    protected int generateSecureRandomIntCode(int bound){
+        return new SecureRandom().nextInt(bound) + 1;
     }
 }
 

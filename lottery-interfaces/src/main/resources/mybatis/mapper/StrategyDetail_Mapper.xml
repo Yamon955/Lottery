@@ -15,4 +15,23 @@
             strategyId = #{strategyId}
     </select>
 
+    <select id="queryNoStockStrategyAwardList" parameterType="long" resultType="string">
+        select
+            awardId
+        from
+            strategy_detail
+        where
+            strategyId = #{strategyId} and awardSurplusCount = 0
+    </select>
+
+    <update id="deductStock" parameterType="com.lottery.infrastructure.po.StrategyDetail">
+        update
+            strategy_detail
+        set
+            awardSurplusCount = awardSurplusCount - 1
+        where
+            awardSurplusCount > 0
+            and strategyId = #{strategyId}
+            and awardId = #{awardId}
+    </update>
 </mapper>

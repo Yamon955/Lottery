@@ -4,16 +4,20 @@ import com.lottery.domain.strategy.model.vo.AwardRateInfo;
 import com.lottery.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.List;
 
 /**
+ * @Description 单项随机概率抽奖，抽到一个已经排掉的奖品则未中奖
  * @Author Yamon
  * @Create 2023/12/19 20:45
- * 【推荐】单项随机概率抽奖，抽到一个已经排掉的奖品则未中奖
  */
 @Component("singleRateRandomDrawAlgorithm")
 public class SingleRateRandomDrawAlgorithm extends BaseAlgorithm {
+
+    // 数组初始化长度
+    private final int RATE_TUPLE_LENGTH = 128;
 
     @Override
     public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
@@ -28,9 +32,13 @@ public class SingleRateRandomDrawAlgorithm extends BaseAlgorithm {
 
         //返回结果
         String awardId = rateTuple[idx];
-        if(excludeAwardIds.contains(awardId)) return "未中奖";
+
+        //如果中奖ID命中排除奖品列表，则返回null
+        if(excludeAwardIds.contains(awardId)){
+            return null;
+        }
 
         return awardId;
-
     }
+
 }
