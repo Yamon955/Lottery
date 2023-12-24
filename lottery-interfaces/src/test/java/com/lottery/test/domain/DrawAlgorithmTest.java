@@ -1,4 +1,4 @@
-package com.lottery.test;
+package com.lottery.test.domain;
 
 import com.lottery.domain.strategy.model.vo.AwardRateInfo;
 import com.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;

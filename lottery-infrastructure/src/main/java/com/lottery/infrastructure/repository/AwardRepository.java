@@ -1,4 +1,4 @@
-package com.lottery.domain.award.repository.impl;
+package com.lottery.infrastructure.repository;
 
 import com.lottery.domain.award.repository.IAwardRepository;
 import org.springframework.stereotype.Component;
@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 /**
  * @Description 奖品表仓储服务
  * @Author Yamon
- * @Create 2023/12/21 15:17
+ * @Create 2023/12/24 15:35
  */
 @Component
 public class AwardRepository implements IAwardRepository {
+
 }
