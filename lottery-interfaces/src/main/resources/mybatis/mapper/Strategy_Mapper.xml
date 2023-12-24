@@ -28,4 +28,13 @@
             strategy_id = #{strategyId}
     </select>
 
+    <insert id="insert" parameterType="com.lottery.infrastructure.po.Strategy">
+        insert into
+            strategy(strategy_id, strategy_desc, strategy_mode, grant_type,
+            grant_date, ext_info, create_time, update_time)
+        values
+            (#{strategyId}, #{strategyDesc}, #{strategyMode}, #{grantType},
+             #{grantDate}, #{extInfo}, NOW(), NOW())
+    </insert>
+
 </mapper>

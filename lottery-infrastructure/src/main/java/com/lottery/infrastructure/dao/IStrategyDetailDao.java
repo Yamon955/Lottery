@@ -2,10 +2,12 @@ package com.lottery.infrastructure.dao;
 
 import com.lottery.infrastructure.po.StrategyDetail;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
+ * @Description 策略明细表DAO
  * @Author Yamon
  * @Create 2023/12/20 10:15
  */
@@ -32,4 +34,10 @@ public interface IStrategyDetailDao {
      * @return 返回结果
      */
     int deductStock(StrategyDetail strategyDetailReq);
+
+    /**
+     * 插入策略配置组
+     * @param strategyDetailList 策略配置组
+     */
+    void insertList(@Param("strategyDetailList") List<StrategyDetail> strategyDetailList);
 }

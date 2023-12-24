@@ -47,4 +47,24 @@
             and strategy_id = #{strategyId}
             and award_id = #{awardId}
     </update>
+
+    <insert id="insertList" parameterType="com.lottery.infrastructure.po.StrategyDetail">
+        insert into
+            strategy_detail(strategy_id, award_id, award_name, award_count, award_surplus_count,
+                            award_rate, create_time, update_time)
+        values
+            <foreach collection="strategyDetailList" item="strategyDetail" index="index" separator=",">
+                (
+                #{strategyDetail.strategyId},
+                #{strategyDetail.awardId},
+                #{strategyDetail.awardName},
+                #{strategyDetail.awardCount},
+                #{strategyDetail.awardSurplusCount},
+                #{strategyDetail.awardRate},
+                NOW(),
+                NOW()
+                )
+            </foreach>
+
+    </insert>
 </mapper>

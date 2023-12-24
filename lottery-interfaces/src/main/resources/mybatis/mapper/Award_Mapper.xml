@@ -24,4 +24,20 @@
         where
             award_id = #{awardId}
     </select>
+
+    <insert id="insertList" parameterType="list">
+        insert into
+            award(award_id, award_type, award_name, award_content, create_time, update_time)
+        values
+            <foreach collection="awardList" item="award" index="index" separator=",">
+                (
+                 #{award.awardId},
+                 #{award.awardType},
+                 #{award.awardName},
+                 #{award.awardContent},
+                 NOW(),
+                 NOW()
+                )
+            </foreach>
+    </insert>
 </mapper>
