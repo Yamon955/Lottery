@@ -6,32 +6,45 @@
 <!-- namespace等于mapper接口类的全限定符,这样实现对应 -->
 <mapper namespace="com.lottery.infrastructure.dao.IStrategyDetailDao">
 
-    <select id="queryStrategyDetailList" parameterType="long" resultType="com.lottery.infrastructure.po.StrategyDetail">
+    <resultMap id="strategyDetailMap" type="com.lottery.infrastructure.po.StrategyDetail">
+        <id column="id" property="id"/>
+        <result column="strategy_id" property="strategyId"/>
+        <result column="award_id" property="awardId"/>
+        <result column="award_name" property="awardName"/>
+        <result column="award_count" property="awardCount"/>
+        <result column="award_surplus_count" property="awardSurplusCount"/>
+        <result column="award_rate" property="awardRate"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryStrategyDetailList" parameterType="long" resultMap="strategyDetailMap">
         select
-            id, strategyId, awardId, awardCount, awardRate, createTime, updateTime
+            id, strategy_id, award_id, award_count, award_surplus_count,
+            award_rate, create_time, update_time
         from
             strategy_detail
         where
-            strategyId = #{strategyId}
+            strategy_id = #{strategyId}
     </select>
 
     <select id="queryNoStockStrategyAwardList" parameterType="long" resultType="string">
         select
-            awardId
+            award_id
         from
             strategy_detail
         where
-            strategyId = #{strategyId} and awardSurplusCount = 0
+            strategy_id = #{strategyId} and award_surplus_count = 0
     </select>
 
     <update id="deductStock" parameterType="com.lottery.infrastructure.po.StrategyDetail">
         update
             strategy_detail
         set
-            awardSurplusCount = awardSurplusCount - 1
+            award_surplus_count = award_surplus_count - 1
         where
-            awardSurplusCount > 0
-            and strategyId = #{strategyId}
-            and awardId = #{awardId}
+            award_surplus_count > 0
+            and strategy_id = #{strategyId}
+            and award_id = #{awardId}
     </update>
 </mapper>
