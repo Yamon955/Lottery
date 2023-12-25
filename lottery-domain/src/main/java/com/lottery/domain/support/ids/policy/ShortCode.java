@@ -14,6 +14,7 @@ import java.util.Random;
 @Component
 public class ShortCode implements IIdGenerator {
 
+    // Random的种子用的是当前系统时间,并发的话可能产生相同随机数 --> 所以要加上 synchronized
     @Override
     public synchronized long nextId() {
         Calendar calendar = Calendar.getInstance();
